@@ -1,0 +1,18 @@
+<!-- config.xml -->
+<config>
+    <training>
+        <num_epochs>400</num_epochs>
+        <min_lr>0.0001</min_lr>
+        <patience>10</patience>
+        <early_stopping_delta>0.001</early_stopping_delta>
+        <batch_size>8</batch_size>
+        <num_classes>12</num_classes>
+    </training>
+    <paths>
+        <data_dir>/home/njlab/Desktop/Anh_san/garbage_classification</data_dir>
+        <log_dir>./epochs_400_temp_log</log_dir>
+    </paths>
+    <device>
+        <type>auto</type> <!-- "auto" to detect cuda/cpu, or specify "cuda" or "cpu" -->
+    </device>
+</config>
