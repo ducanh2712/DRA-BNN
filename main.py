@@ -7,14 +7,15 @@ from torch.utils.data import DataLoader, Dataset
 import numpy as np
 from data import GarbageDataset, get_train_transform, get_val_transform
 from models import BinaryResNet18
-from training import train_FSG, validate, DVLR
+from training import train_DualRateBNN, validate, DVLR
 from utils import calculate_flops, create_confusion_matrix, plot_confusion_matrix, visualize_samples, parse_config
 import matplotlib.pyplot as plt
 import argparse
 import random
 
 # Constants for testing
-TEST_MODEL = "/home/njlab/Desktop/Anh_san/project_root/epochs_97_82.86_log/best_model.pth"
+TEST_MODEL = "log_result/train_result/epochs_97_82.86_log/best_model.pth"
+
 NUM_TEST_IMAGES = 200  # Number of images to test
 NUM_DISPLAY_IMAGES = 20  # Number of images to display as examples
 
@@ -189,7 +190,7 @@ def main():
         try:
             for epoch in range(config['num_epochs']):
                 start_time = time.time()
-                avg_loss = train_FSG(model, train_loader, optimizer, criterion, device, dvlr, alpha_list)
+                avg_loss = train_DualRateBNN(model, train_loader, optimizer, criterion, device, dvlr, alpha_list)
                 acc = validate(model, val_loader, device)
                 scheduler.step(avg_loss)
                 epoch_time = time.time() - start_time

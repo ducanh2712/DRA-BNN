@@ -1,7 +1,7 @@
 import torch
 from tqdm import tqdm
 
-def train_FSG(model, train_loader, optimizer, criterion, device, dvlr, alpha_list):
+def train_DualRateBNN(model, train_loader, optimizer, criterion, device, dvlr, alpha_list):
     model.train()
     total_loss = 0
     for images, labels in tqdm(train_loader, desc='Training'):

@@ -1,1 +1,3 @@
 log_result/
+*.pyc
+__pycache__/

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from .binarization import AdaBinFunction
+from .binarization import DualRateAlphaFunction
 
 class BinaryConv2d(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=1):
@@ -12,7 +12,7 @@ class BinaryConv2d(nn.Module):
         self.alpha = nn.Parameter(torch.ones(1) * 0.5)
 
     def forward(self, x):
-        binary_weight = AdaBinFunction.apply(self.conv.weight, self.alpha)
+        binary_weight = DualRateAlphaFunction.apply(self.conv.weight, self.alpha)
         x = F.conv2d(x, binary_weight, stride=self.conv.stride, padding=self.conv.padding)
         x = self.bn(x)
         return self.prelu(x)
@@ -24,7 +24,7 @@ class BinaryLinear(nn.Module):
         self.alpha = nn.Parameter(torch.ones(1) * 0.5)
 
     def forward(self, x):
-        binary_weight = AdaBinFunction.apply(self.fc.weight, self.alpha)
+        binary_weight = DualRateAlphaFunction.apply(self.fc.weight, self.alpha)
         return F.linear(x, binary_weight)
 
 class BinaryResidualBlock(nn.Module):

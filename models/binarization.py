@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-class AdaBinFunction(torch.autograd.Function):
+class DualRateAlphaFunction(torch.autograd.Function):
     @staticmethod
     def forward(ctx, weight, alpha):
         ctx.save_for_backward(weight, alpha)
